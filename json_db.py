@@ -14,9 +14,7 @@ class JsonDB:
         """Reads data from a JSON file and returns it as a Python dictionary."""
         try:
             with open(self.filename, 'r') as file:
-                print('Im here')
                 data = json.load(file, object_hook=metadata_decoder)
-                print('Im here, after')
         except FileNotFoundError:
             data = {}
         return data
@@ -29,7 +27,7 @@ class JsonDB:
     def add_record(self, record: Metadata):
         """Adds a new record to the JSON file."""
         data = self.read_json()
-        data[record.url] = record
+        data[record.site] = record
         self.write_json(data)
 
     def delete_record(self, key: str):
@@ -42,8 +40,12 @@ class JsonDB:
         else:
             print("Record with key '{}' not found.".format(key))
 
+    def find_record(self, site: str) -> Metadata | None:
+        data = self.read_json()
+        return data.get(site)
+
     def update_record(self, new_record: Metadata):
         """Updates an existing record in the JSON file."""
         data = self.read_json()
-        data[new_record.url] = new_record
+        data[new_record.site] = new_record
         self.write_json(data)

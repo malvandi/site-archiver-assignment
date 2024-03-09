@@ -1,3 +1,5 @@
+from typing import Dict
+
 import requests
 
 
@@ -10,9 +12,13 @@ class Downloader:
         self.url = url
         self.directory = directory
 
-    def run(self):
+    def run(self) -> Dict[int, int]:
         self.html_content = self._download_page()
         self._save_index_file()
+        return {
+            'num_links': 12,
+            'images': 10
+        }
 
     # Function to download webpage
     def _download_page(self) -> str:

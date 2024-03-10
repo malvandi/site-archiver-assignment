@@ -1,5 +1,4 @@
 import sys
-from typing import List
 
 from downloader import Downloader
 from json_db import JsonDB
@@ -13,7 +12,7 @@ db = JsonDB(db_json_file)
 def download(site: str):
 
     key = get_site_key(site)
-    downloader = Downloader(site, '')
+    downloader = Downloader(site, './Downloads')
     result = downloader.run()
     metadata = Metadata(key, result['num_links'], result['images'])
     db.update_record(metadata)

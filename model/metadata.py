@@ -25,6 +25,6 @@ def metadata_encoder(obj):
 
 
 def metadata_decoder(obj):
-    if 'url' in obj:
-        return Metadata(obj['url'], obj['num_links'], obj['images'])
+    if 'site' in obj:
+        return Metadata(obj['site'], obj['num_links'], obj['images'])
     return obj

@@ -83,8 +83,9 @@ class Downloader:
         directory = f'{self.assets_directory}/{file_name}'
         valid_url = self._get_valid_url(url)
         self._download_asset(valid_url, directory)
-        print('Replace URL[%s] with [%s]' % (url, f'{self.assets_directory}/{file_name}'))
-        self.html_content = self.html_content.replace(url, f'{self.assets_directory}/{file_name}')
+        asset_url = self._get_valid_assets_url(file_name)
+        print('Replace URL[%s] with [%s]' % (url, asset_url))
+        self.html_content = self.html_content.replace(url, asset_url)
 
     # Function to download webpage
     def _download_page(self) -> str:
@@ -106,6 +107,9 @@ class Downloader:
 
     def _get_valid_assets_directory(self) -> str:
         return f'{self.directory}/{self.url}' if self.directory != '' else f'./{self.url}'
+
+    def _get_valid_assets_url(self, file_name: str) -> str:
+        return f'./{self.url}/{file_name}'
 
     def _get_valid_url(self, url: str) -> str:
         if url.startswith('http'):
